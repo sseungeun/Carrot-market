@@ -1,8 +1,6 @@
 package com.example.carrot.activity;
 
-
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,28 +32,27 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_posts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        loadPosts();
+        loadProducts(); // 이거 하나만 호출하면 됨
     }
 
-    private void loadPosts() {
+    private void loadProducts() {
         ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
         Call<List<Product>> call = apiService.getProducts();
 
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-                if (response.isSuccessful()) {
-                    List<Product> productList = response.body();
-                    postAdapter = new PostAdapter(MainActivity.this, productList);
+                if (response.isSuccessful() && response.body() != null) {
+                    postAdapter = new PostAdapter(MainActivity.this, response.body());
                     recyclerView.setAdapter(postAdapter);
                 } else {
-                    Toast.makeText(MainActivity.this, "리스트 로드 실패", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "불러오기 실패", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "서버 오류 발생", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "서버 연결 실패", Toast.LENGTH_SHORT).show();
             }
         });
     }

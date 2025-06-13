@@ -27,6 +27,7 @@
             android:name=".activity.MainActivity"
             android:exported="true" />
 
+
     </application>
 
 </manifest>
