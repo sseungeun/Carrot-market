@@ -33,6 +33,15 @@ public class LoginActivity extends AppCompatActivity {
 
         sharedPrefManager = new SharedPrefManager(this);
 
+        // ✅ 자동로그인 체크 추가
+        if (sharedPrefManager.getUserId() != null) {
+            // 이미 로그인 되어있으면 바로 메인으로
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         etNickname = findViewById(R.id.et_nickname);
         etPassword = findViewById(R.id.et_password);
         btnLogin = findViewById(R.id.btn_login);
@@ -48,12 +57,12 @@ public class LoginActivity extends AppCompatActivity {
         btnGoSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 회원가입 화면으로 이동
                 Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(intent);
             }
         });
     }
+
 
     private void login() {
         String nickname = etNickname.getText().toString().trim();

@@ -2,6 +2,7 @@ package com.example.carrot.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.carrot.R;
 import com.example.carrot.model.User;
+import com.example.carrot.model.UserRegisterRequest;
 import com.example.carrot.network.ApiService;
 import com.example.carrot.network.RetrofitClient;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,31 +47,36 @@ public class SignupActivity extends AppCompatActivity {
     private void signup() {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
-        String nickname = etNickname.getText().toString().trim();
+        String username = etNickname.getText().toString().trim();  // 변수명 통일
 
-        if (email.isEmpty() || password.isEmpty() || nickname.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty() || username.isEmpty()) {
             Toast.makeText(SignupActivity.this, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        User user = new User(nickname, email, password);
+        UserRegisterRequest user = new UserRegisterRequest(username,username, email, password);
+
+
+        Log.d("DEBUG_REQUEST", new Gson().toJson(user));
+
 
         ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
-        Call<User> call = apiService.registerUser(user);
+        Call<Void> call = apiService.registerUser(user);
 
-        call.enqueue(new Callback<User>() {
+
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(SignupActivity.this, "회원가입 성공!", Toast.LENGTH_SHORT).show();
-                    finish();  // 가입 후 로그인 화면으로 이동 (일단은 단순 finish)
+                    finish();
                 } else {
                     Toast.makeText(SignupActivity.this, "회원가입 실패: " + response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Toast.makeText(SignupActivity.this, "서버 연결 실패", Toast.LENGTH_SHORT).show();
             }
         });

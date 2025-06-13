@@ -7,8 +7,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.*;
 public interface ApiService {
+    @Headers("Content-Type: application/json")
     @POST("/users/register")
-    Call<User> registerUser(@Body User user);
+    Call<Void> registerUser(@Body UserRegisterRequest user);
 
     @POST("/users/login")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
