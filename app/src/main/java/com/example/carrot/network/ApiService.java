@@ -15,7 +15,8 @@ public interface ApiService {
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
 
     @POST("/products")
-    Call<Product> createProduct(@Body Product product);
+    Call<Product> createProduct(@Body ProductRequest product);
+
 
     @GET("/products")
     Call<List<Product>> getProducts();

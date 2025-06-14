@@ -1,6 +1,9 @@
 package com.example.carrot.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +15,7 @@ import com.example.carrot.adapter.PostAdapter;
 import com.example.carrot.model.Product;
 import com.example.carrot.network.ApiService;
 import com.example.carrot.network.RetrofitClient;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -32,7 +36,18 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_posts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        FloatingActionButton fab = findViewById(R.id.fab_add_post);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UploadActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         loadProducts(); // 이거 하나만 호출하면 됨
+
     }
 
     private void loadProducts() {
@@ -43,10 +58,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
+                    Log.d("DEBUG", "상품 갯수: " + response.body().size());
                     postAdapter = new PostAdapter(MainActivity.this, response.body());
                     recyclerView.setAdapter(postAdapter);
                 } else {
                     Toast.makeText(MainActivity.this, "불러오기 실패", Toast.LENGTH_SHORT).show();
+                    Log.d("DEBUG", "서버응답은 성공했지만 데이터 없음");
                 }
             }
 

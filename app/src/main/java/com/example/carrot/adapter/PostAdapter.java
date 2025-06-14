@@ -1,6 +1,7 @@
 package com.example.carrot.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.carrot.R;
+import com.example.carrot.activity.PostDetailActivity;
 import com.example.carrot.model.Product;
 
 import java.util.List;
@@ -42,9 +44,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         // 이미지 로드 (Glide 사용, 없으면 기본 이미지)
         Glide.with(context)
-                .load(product.getImageUrl())
+                .load(product.getImage())
                 .placeholder(R.drawable.ic_launcher_foreground)
                 .into(holder.ivProductImage);
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, PostDetailActivity.class);
+            intent.putExtra("product", product);
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -63,5 +70,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvLocation = itemView.findViewById(R.id.tv_location);
             tvPrice = itemView.findViewById(R.id.tv_price);
         }
+
     }
 }
+

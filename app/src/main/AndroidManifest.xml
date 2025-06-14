@@ -22,10 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.SignupActivity" />
-        <activity
-            android:name=".activity.MainActivity"
-            android:exported="true" />
+        <activity android:name=".activity.MainActivity" android:exported="true" />
+        <activity android:name=".activity.UploadActivity" />
+        <activity android:name=".activity.PostDetailActivity" />
 
 
     </application>
