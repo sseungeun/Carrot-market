@@ -17,18 +17,21 @@ public interface ApiService {
     @POST("/products")
     Call<Product> createProduct(@Body ProductRequest product);
 
-
     @GET("/products")
-    Call<List<Product>> getProducts();
+    Call<List<Product>> getProducts(
+            @Query("skip") int skip,
+            @Query("limit") int limit,
+            @Query("status") String status
+    );
 
     @GET("/products/{product_id}")
-    Call<Product> getProductDetail(@Path("product_id") String productId);
+    Call<Product> getProductDetail(@Path("product_id") int productId);
 
     @GET("/products/seller/{seller_id}")
-    Call<List<Product>> getSellerProducts(@Path("seller_id") String sellerId);
+    Call<List<Product>> getSellerProducts(@Path("seller_id") int sellerId);
 
     @PATCH("/products/{product_id}/status")
-    Call<Void> updateProductStatus(@Path("product_id") String productId, @Body ProductStatusUpdateRequest request);
+    Call<Void> updateProductStatus(@Path("product_id") int productId, @Body ProductStatusUpdateRequest request);
 
     @POST("/messages")
     Call<Message> sendMessage(@Body Message message);

@@ -45,25 +45,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        loadProducts(); // 이거 하나만 호출하면 됨
-
+        loadProducts();
     }
 
     private void loadProducts() {
         ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
-        Call<List<Product>> call = apiService.getProducts();
+
+        // 새 API 기준 파라미터 (기본값 사용)
+        int skip = 0;
+        int limit = 20;
+        String status = "for_sale";
+
+        Call<List<Product>> call = apiService.getProducts(skip, limit, status);
 
         call.enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Log.d("DEBUG", "상품 갯수: " + response.body().size());
+                    Log.d("DEBUG", "상품 개수: " + response.body().size());
                     postAdapter = new PostAdapter(MainActivity.this, response.body());
                     recyclerView.setAdapter(postAdapter);
                 } else {
-                    Toast.makeText(MainActivity.this, "불러오기 실패", Toast.LENGTH_SHORT).show();
-                    Log.d("DEBUG", "서버응답은 성공했지만 데이터 없음");
+                    Toast.makeText(MainActivity.this, "불러오기 실패: " + response.code(), Toast.LENGTH_SHORT).show();
+                    Log.d("DEBUG", "응답 성공 but 데이터 없음");
                 }
             }
 

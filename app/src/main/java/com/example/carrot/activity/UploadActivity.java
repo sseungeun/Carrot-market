@@ -45,20 +45,19 @@ public class UploadActivity extends AppCompatActivity {
         String title = etTitle.getText().toString().trim();
         String description = etContent.getText().toString().trim();
         int price = Integer.parseInt(etPrice.getText().toString().trim());
-        int sellerId = 1;  // 임시 고정값
+        int sellerId = 1;  // 임시 고정
 
-        // 여기서 모든 nullable 필드는 null로 보내주기
+        // nullable 필드들은 일단 null로 보냄
         Double latitude = null;
         Double longitude = null;
-        String location_name = null;
+        String locationName = null;
         String image = null;
 
-        // ProductRequest를 전체 필드로 생성
-        ProductRequest product = new ProductRequest(title, description, price, sellerId,
-                latitude, longitude, location_name, image);
+        ProductRequest productRequest = new ProductRequest(title, description, price, sellerId,
+                latitude, longitude, locationName, image);
 
         ApiService apiService = RetrofitClient.getRetrofitInstance().create(ApiService.class);
-        Call<Product> call = apiService.createProduct(product);
+        Call<Product> call = apiService.createProduct(productRequest);
 
         call.enqueue(new Callback<Product>() {
             @Override

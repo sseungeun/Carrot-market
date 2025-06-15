@@ -22,4 +22,3 @@ public class ProductRequest {
         this.image = image;
     }
 }
-

@@ -14,11 +14,23 @@ public class Product implements Serializable {
     private String image;
     private String status;
 
-    public Product() {
-        // 서버에서 파싱할 때 기본 생성자가 필요합니다.
+    // (Gson에서 파싱을 위해 기본 생성자 필요)
+    public Product() {}
+
+    public Product(String title, String description, int price, int seller_id,
+                   Double latitude, Double longitude, String location_name, String image) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.seller_id = seller_id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.location_name = location_name;
+        this.image = image;
     }
 
-    // Getter (필수)
+    // Getters
+
     public int getId() { return id; }
     public String getTitle() { return title; }
     public String getDescription() { return description; }
