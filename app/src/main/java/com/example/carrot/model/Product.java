@@ -14,8 +14,7 @@ public class Product implements Serializable {
     private String image;
     private String status;
 
-    // (Gson에서 파싱을 위해 기본 생성자 필요)
-    public Product() {}
+    public Product() {}  // 기본 생성자 꼭 필요함 (Gson 파싱용)
 
     public Product(String title, String description, int price, int seller_id,
                    Double latitude, Double longitude, String location_name, String image) {
@@ -30,7 +29,6 @@ public class Product implements Serializable {
     }
 
     // Getters
-
     public int getId() { return id; }
     public String getTitle() { return title; }
     public String getDescription() { return description; }

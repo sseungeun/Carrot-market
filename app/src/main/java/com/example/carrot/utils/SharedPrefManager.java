@@ -4,30 +4,23 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPrefManager {
-
-    private static final String SHARED_PREF_NAME = "carrot_pref";
-    private static final String KEY_USER_ID = "key_user_id";
-
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    private static final String PREF_NAME = "carrot_pref";
+    private static final String KEY_USER_ID = "user_id";
+    private final SharedPreferences prefs;
 
     public SharedPrefManager(Context context) {
-        sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+        prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
-    public void saveUserId(String userId) {
-        editor.putString(KEY_USER_ID, userId);
-        editor.apply();
+    public void saveUserId(int userId) {
+        prefs.edit().putInt(KEY_USER_ID, userId).apply();
     }
 
-    public String getUserId() {
-        return sharedPreferences.getString(KEY_USER_ID, null);
+    public int getUserId() {
+        return prefs.getInt(KEY_USER_ID, -1);
     }
 
     public void clear() {
-        editor.clear();
-        editor.apply();
+        prefs.edit().clear().apply();
     }
 }
-

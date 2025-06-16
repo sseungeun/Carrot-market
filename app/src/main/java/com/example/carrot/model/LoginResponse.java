@@ -1,11 +1,11 @@
 package com.example.carrot.model;
 
 public class LoginResponse {
-    private String id;
+    private int id;
     private String username;
     private String email;
 
-    public String getId() { return id; }
+    public int getId() { return id; }
     public String getUsername() { return username; }
     public String getEmail() { return email; }
 }

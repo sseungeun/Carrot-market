@@ -6,7 +6,9 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.*;
+
 public interface ApiService {
+
     @Headers("Content-Type: application/json")
     @POST("/users/register")
     Call<Void> registerUser(@Body UserRegisterRequest user);
@@ -14,8 +16,10 @@ public interface ApiService {
     @POST("/users/login")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
 
+    // ✅ 여기 수정 (Product → ProductRequest)
+    @Headers("Content-Type: application/json")
     @POST("/products")
-    Call<Product> createProduct(@Body ProductRequest product);
+    Call<Product> createProduct(@Body ProductRequest productRequest);
 
     @GET("/products")
     Call<List<Product>> getProducts(

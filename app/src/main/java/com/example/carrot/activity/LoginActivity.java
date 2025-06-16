@@ -34,12 +34,11 @@ public class LoginActivity extends AppCompatActivity {
         sharedPrefManager = new SharedPrefManager(this);
 
         // ✅ 자동로그인 체크 추가
-        if (sharedPrefManager.getUserId() != null) {
-            // 이미 로그인 되어있으면 바로 메인으로
+        if (sharedPrefManager.getUserId() != -1) {
+            // 이미 로그인되어 있으면 바로 메인으로
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-            return;
         }
 
         etNickname = findViewById(R.id.et_nickname);
@@ -81,15 +80,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
                     LoginResponse loginResponse = response.body();
-                    sharedPrefManager.saveUserId(loginResponse.getId()); // 유저 ID 저장
+                    sharedPrefManager.saveUserId(loginResponse.getId());  // int 저장
 
                     Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
 
-                    // 메인 화면으로 이동
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-
                 } else {
                     Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
                 }
