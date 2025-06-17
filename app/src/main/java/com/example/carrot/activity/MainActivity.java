@@ -27,6 +27,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
+    private List<Product> productList;
     private PostAdapter postAdapter;
     private Button btnAll, btnMyProducts;
     private int sellerId;  // int로 선언
@@ -55,6 +56,16 @@ public class MainActivity extends AppCompatActivity {
         btnMyProducts.setOnClickListener(v -> loadMyProducts());
 
         loadAllProducts();  // 최초 전체 상품 조회
+
+        // UploadActivity에서 넘긴 새 상품을 받기
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("newProduct")) {
+            Product newProduct = (Product) intent.getSerializableExtra("newProduct");
+            if (newProduct != null) {
+                // 새로운 상품을 목록에 추가하고 "내 판매물건" 탭으로 활성화
+                loadMyProducts();  // 내 판매물건 리스트 다시 불러오기
+            }
+        }
     }
 
     private void loadAllProducts() {
@@ -100,5 +111,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // 데이터를 받아 RecyclerView 갱신
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("newProduct")) {
+            Product newProduct = (Product) intent.getSerializableExtra("newProduct");
+            if (newProduct != null) {
+                // 새로운 상품을 목록에 추가하고 "내 판매물건" 탭으로 활성화
+                addNewProductToList(newProduct);
+            }
+        }
+    }
+
+    private void addNewProductToList(Product newProduct) {
+        if (postAdapter != null) {
+            postAdapter.addNewProduct(newProduct); // PostAdapter에 새 상품 추가
+        }
+    }
+
 }
 

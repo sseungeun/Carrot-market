@@ -42,11 +42,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         holder.tvLocation.setText("위치 미지정");
         holder.tvPrice.setText(product.getPrice() + "원");
 
-        // 이미지 로드 (Glide 사용, 없으면 기본 이미지)
+        // 이미지 경로가 null이거나 비어있으면 기본 이미지를 사용하도록 처리
+        String imagePath = product.getImage();
         Glide.with(context)
-                .load(product.getImage())
-                .placeholder(R.drawable.ic_launcher_foreground)
+                .load(imagePath != null && !imagePath.isEmpty() ? imagePath : R.drawable.ic_launcher_foreground) // null일 경우 기본 이미지
                 .into(holder.ivProductImage);
+
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, PostDetailActivity.class);
             intent.putExtra("product", product);
@@ -57,6 +58,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return productList.size();
+    }
+
+    // 제품 리스트 업데이트 메서드
+    public void updateProductList(List<Product> newProductList) {
+        this.productList = newProductList;
+        notifyDataSetChanged(); // 리스트 갱신 후 RecyclerView 갱신
+    }
+    public void addNewProduct(Product product) {
+        productList.add(0, product);  // 첫 번째 위치에 새 상품 추가
+        notifyItemInserted(0);  // RecyclerView 갱신
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -70,7 +81,5 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvLocation = itemView.findViewById(R.id.tv_location);
             tvPrice = itemView.findViewById(R.id.tv_price);
         }
-
     }
 }
-

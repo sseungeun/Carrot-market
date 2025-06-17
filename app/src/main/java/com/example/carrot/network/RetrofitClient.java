@@ -8,9 +8,9 @@ import com.google.gson.FieldNamingPolicy;
 
 public class RetrofitClient {
     private static Retrofit retrofit;
-    private static final String BASE_URL = "https://swu-carrot.replit.app";
+    private static final String BASE_URL = "https://swu-carrot.replit.app/";
 
-    public static Retrofit getRetrofitInstance() {
+    public static synchronized Retrofit getRetrofitInstance() {
         if (retrofit == null) {
             Gson gson = new GsonBuilder()
                     .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

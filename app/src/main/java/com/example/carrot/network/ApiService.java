@@ -4,6 +4,8 @@ import com.example.carrot.model.*;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -16,10 +18,12 @@ public interface ApiService {
     @POST("/users/login")
     Call<LoginResponse> loginUser(@Body LoginRequest loginRequest);
 
-    // ✅ 여기 수정 (Product → ProductRequest)
-    @Headers("Content-Type: application/json")
+    @Multipart
     @POST("/products")
-    Call<Product> createProduct(@Body ProductRequest productRequest);
+    Call<Product> createProduct(
+            @Part("product") RequestBody productRequest,  // RequestBody로 변환
+            @Part MultipartBody.Part image  // 멀티파트로 이미지 파일 전달
+    );
 
     @GET("/products")
     Call<List<Product>> getProducts(
@@ -27,6 +31,7 @@ public interface ApiService {
             @Query("limit") int limit,
             @Query("status") String status
     );
+
 
     @GET("/products/{product_id}")
     Call<Product> getProductDetail(@Path("product_id") int productId);
