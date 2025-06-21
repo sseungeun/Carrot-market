@@ -166,7 +166,10 @@ public class PostDetailActivity extends AppCompatActivity {
 
     private void openChat(Product product) {
         Intent intent = new Intent(this, ChatActivity.class);
-        intent.putExtra("product", product);
+        intent.putExtra("product_id", product.getId());
+        intent.putExtra("other_id", product.getSeller_id());
+        intent.putExtra("other_nickname", product.getSeller_nickname()); // ⭐️ 핵심!
         startActivity(intent);
     }
+
 }

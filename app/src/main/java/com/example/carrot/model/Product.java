@@ -15,6 +15,7 @@ public class Product implements Serializable {
     private String location_name;
     private String image;
     private String status;
+    private String seller_nickname;
 
     public Product() {}
 
@@ -42,7 +43,15 @@ public class Product implements Serializable {
     public String getImage() { return image; }
     public String getStatus() { return status != null ? status : "판매중"; }
 
+    public String getSeller_nickname() {  // 🔹 getter 추가
+        return seller_nickname;
+    }
+
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setSeller_nickname(String seller_nickname) {  // 🔹 setter도 있으면 좋아요
+        this.seller_nickname = seller_nickname;
     }
 }

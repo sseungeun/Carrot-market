@@ -8,6 +8,7 @@ public class Message {
     private double latitude;
     private double longitude;
     private String location_name;
+    private long timestamp; // 추가
 
     public Message(int product_id, int sender_id, int receiver_id, String content,
                    double latitude, double longitude, String location_name) {
@@ -30,4 +31,7 @@ public class Message {
     public double getLatitude() { return latitude; }
     public double getLongitude() { return longitude; }
     public String getLocation_name() { return location_name; }
+    public long getTimestamp() {
+        return timestamp;
+    }
 }
