@@ -6,9 +6,12 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-feature android:name="android.hardware.camera" android:required="false" />
 
+    <!-- Scoped Storage 관련 권한 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-
-
+    <!-- Android 11 이상에서 필요한 권한 (전체 파일 시스템 접근) -->
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,6 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Carrot"
         tools:targetApi="31">
+
         <activity
             android:name=".activity.LoginActivity"
             android:exported="true">
@@ -35,7 +39,5 @@
         <activity android:name=".activity.PostDetailActivity" />
         <activity android:name=".activity.ChatActivity" />
 
-
     </application>
-
 </manifest>

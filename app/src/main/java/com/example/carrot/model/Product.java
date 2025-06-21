@@ -2,6 +2,8 @@ package com.example.carrot.model;
 
 import java.io.Serializable;
 
+// Product.java
+
 public class Product implements Serializable {
     private int id;
     private String title;
@@ -14,7 +16,7 @@ public class Product implements Serializable {
     private String image;
     private String status;
 
-    public Product() {}  // 기본 생성자 꼭 필요함 (Gson 파싱용)
+    public Product() {}
 
     public Product(String title, String description, int price, int seller_id,
                    Double latitude, Double longitude, String location_name, String image) {
@@ -38,5 +40,9 @@ public class Product implements Serializable {
     public Double getLongitude() { return longitude; }
     public String getLocation_name() { return location_name; }
     public String getImage() { return image; }
-    public String getStatus() { return status; }
+    public String getStatus() { return status != null ? status : "판매중"; }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

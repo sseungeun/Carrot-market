@@ -21,8 +21,14 @@ public interface ApiService {
     @Multipart
     @POST("/products")
     Call<Product> createProduct(
-            @Part("product") RequestBody productRequest,  // RequestBody로 변환
-            @Part MultipartBody.Part image  // 멀티파트로 이미지 파일 전달
+            @Part("title") RequestBody title,
+            @Part("description") RequestBody description,
+            @Part("price") RequestBody price,
+            @Part("seller_id") RequestBody sellerId,
+            @Part("latitude") RequestBody latitude,
+            @Part("longitude") RequestBody longitude,
+            @Part("location_name") RequestBody locationName,
+            @Part MultipartBody.Part image
     );
 
     @GET("/products")
