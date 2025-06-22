@@ -1,6 +1,5 @@
 package com.example.carrot.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.carrot.R;
-import com.example.carrot.model.User;
 import com.example.carrot.model.UserRegisterRequest;
 import com.example.carrot.network.ApiService;
 import com.example.carrot.network.RetrofitClient;
@@ -47,7 +45,7 @@ public class SignupActivity extends AppCompatActivity {
     private void signup() {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
-        String username = etNickname.getText().toString().trim();  // 변수명 통일
+        String username = etNickname.getText().toString().trim();
 
         if (email.isEmpty() || password.isEmpty() || username.isEmpty()) {
             Toast.makeText(SignupActivity.this, "모든 정보를 입력해주세요", Toast.LENGTH_SHORT).show();

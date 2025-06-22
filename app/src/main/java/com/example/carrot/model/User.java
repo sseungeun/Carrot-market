@@ -6,7 +6,6 @@ public class User {
     private String email;
     private String password;
 
-    // ✅ 기본 생성자 추가
     public User() {
     }
 

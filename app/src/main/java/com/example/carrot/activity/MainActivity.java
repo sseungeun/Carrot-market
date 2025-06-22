@@ -2,7 +2,6 @@ package com.example.carrot.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -102,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    // 🔽 삭제된 상품 제외하고 필터링
+                    // 삭제된 상품 제외하고 필터링
                     List<Product> filteredList = new ArrayList<>();
                     for (Product product : response.body()) {
                         if (!"deleted".equalsIgnoreCase(product.getStatus())) {

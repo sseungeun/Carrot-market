@@ -111,7 +111,6 @@ public class PostDetailActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Toast.makeText(PostDetailActivity.this, "삭제 완료", Toast.LENGTH_SHORT).show();
 
-                    // 🔽 결과 전달
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("deletedProductId", productId);
                     setResult(RESULT_OK, resultIntent);
@@ -144,7 +143,6 @@ public class PostDetailActivity extends AppCompatActivity {
                         tvStatus.setText("sold");
                     }
 
-                    // 🔽 결과 전달
                     Intent resultIntent = new Intent();
                     resultIntent.putExtra("updatedProductId", productId);
                     setResult(RESULT_OK, resultIntent);
@@ -168,7 +166,7 @@ public class PostDetailActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChatActivity.class);
         intent.putExtra("product_id", product.getId());
         intent.putExtra("other_id", product.getSeller_id());
-        intent.putExtra("other_nickname", product.getSeller_nickname()); // ⭐️ 핵심!
+        intent.putExtra("other_nickname", product.getSeller_nickname());
         startActivity(intent);
     }
 

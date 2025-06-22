@@ -48,15 +48,4 @@ public interface ApiService {
     @PATCH("/products/{product_id}/status")
     Call<Void> updateProductStatus(@Path("product_id") int productId, @Body ProductStatusUpdateRequest request);
 
-    @POST("/messages")
-    Call<Message> sendMessage(@Body Message message);
-
-    @GET("/messages/{product_id}/{user1_id}/{user2_id}")
-    Call<List<Message>> getMessages(
-            @Path("product_id") String productId,
-            @Path("user1_id") String user1Id,
-            @Path("user2_id") String user2Id);
-
-    @GET("/messages/conversations/{user_id}")
-    Call<List<Message>> getUserConversations(@Path("user_id") String userId);
 }

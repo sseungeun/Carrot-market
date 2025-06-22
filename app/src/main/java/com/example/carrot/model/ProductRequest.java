@@ -22,5 +22,4 @@ public class ProductRequest {
         this.image = image;
     }
 
-    // Getters (없어도 됨, Gson에서 기본 생성자만 있으면 직렬화 가능)
 }

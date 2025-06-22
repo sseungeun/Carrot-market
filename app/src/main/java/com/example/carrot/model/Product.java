@@ -2,7 +2,6 @@ package com.example.carrot.model;
 
 import java.io.Serializable;
 
-// Product.java
 
 public class Product implements Serializable {
     private int id;
@@ -43,7 +42,7 @@ public class Product implements Serializable {
     public String getImage() { return image; }
     public String getStatus() { return status != null ? status : "판매중"; }
 
-    public String getSeller_nickname() {  // 🔹 getter 추가
+    public String getSeller_nickname() {
         return seller_nickname;
     }
 
@@ -51,7 +50,7 @@ public class Product implements Serializable {
         this.status = status;
     }
 
-    public void setSeller_nickname(String seller_nickname) {  // 🔹 setter도 있으면 좋아요
+    public void setSeller_nickname(String seller_nickname) {
         this.seller_nickname = seller_nickname;
     }
 }

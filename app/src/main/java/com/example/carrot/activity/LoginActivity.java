@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
 
         sharedPrefManager = new SharedPrefManager(this);
 
-        // ✅ 자동로그인 체크 추가
+        // 자동로그인 체크 추가
         if (sharedPrefManager.getUserId() != -1) {
             // 이미 로그인되어 있으면 바로 메인으로
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                     LoginResponse loginResponse = response.body();
                     sharedPrefManager.saveUserId(loginResponse.getId());  // int 저장
 
-                    Toast.makeText(LoginActivity.this, "로그인 성공!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);

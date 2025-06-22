@@ -23,7 +23,6 @@ public class Message {
 
     public Message() {}
 
-    // getter 추가!
     public int getProduct_id() { return product_id; }
     public int getSender_id() { return sender_id; }
     public int getReceiver_id() { return receiver_id; }
